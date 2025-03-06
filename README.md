@@ -5,7 +5,9 @@ Very simple and lightweight dotfile manager.
 
 ## Installation
 clone this repository on your system
-```git clone https://github.com/veillain/dotman.git```
+```
+git clone https://github.com/veillain/dotman.git
+```
 
 and then, copy the dotman file into your binary executable path
 ```

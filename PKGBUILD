@@ -1,47 +1,29 @@
 # Maintainer: Veillain <veillainwertz@gmail.com>
 pkgname=dotman
-pkgver=0.0.1
+pkgver=0.1.0.r1.g68a7dee
 pkgrel=1
-epoch=
-pkgdesc=""
-arch=()
-url=""
-license=('GPL')
-groups=()
-depends=()
-makedepends=()
-checkdepends=()
-optdepends=()
-provides=()
-conflicts=()
-replaces=()
-backup=()
-options=()
-install=
-changelog=
-source=("$pkgname-$pkgver.tar.gz"
-        "$pkgname-$pkgver.patch")
-noextract=()
-sha256sums=()
-validpgpkeys=()
+pkgdesc="Surprisingly a very simple DOTfile MANager, fully created using bash."
+arch=('any')
+url="https://github.com/veillain/dotman"
+license=('GPL3')
+depends=('git')
+makedepends=('git' 'systemd')
+provides=("dotman=${pkgver%%.r*}")
+conflicts=('dotman')
+source=("${pkgname}-${pkgver}::git+https://github.com/veillain/dotman.git")
+sha256sums=('SKIP')
 
-prepare() {
-	cd "$pkgname-$pkgver"
-	patch -p1 -i "$srcdir/$pkgname-$pkgver.patch"
+pkgver() {
+    cd "$pkgname-$pkgver"
+    git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
 	cd "$pkgname-$pkgver"
-	./configure --prefix=/usr
-	make
-}
-
-check() {
-	cd "$pkgname-$pkgver"
-	make -k check
+    sudo rm -rf usr/bin/dotman
 }
 
 package() {
 	cd "$pkgname-$pkgver"
-	make DESTDIR="$pkgdir/" install
+    sudo cp -rf src/dotman /usr/bin/
 }

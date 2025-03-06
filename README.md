@@ -1,5 +1,5 @@
-# DotMan - Dotfile Manager
-Dotman is a very lightweight and simple dotfile manager for GNU/Linux operating systems.\
+# Dotman
+Dotman is a very lightweight and simple ```DOT```file ```MAN```ager for GNU/Linux operating systems.\
 These are the **features** dotman have for now:
 | Features | Description                                                         | Status      | 
 |----------|---------------------------------------------------------------------|-------------|
@@ -9,6 +9,7 @@ These are the **features** dotman have for now:
 | Remove   | Remove config files/folder from dotfiles                            | Applied     |
 | Apply    | Apply configuration from dotfiles to local                          | In Progress |
 | Appyyall | Apply all configuration from dotfiles to local                      | In progress |
+
 
 ## Installation
 ```
@@ -20,4 +21,4 @@ cp -rf src/dotman /usr/bin/
 ### If you're using archlinux, dotman can be installed from aur
 [![dotman](https://img.shields.io/aur/version/dotman?color=1793d1&label=dotman&logo=arch-linux&style=for-the-badge)](https://aur.archlinux.org/packages/dotman/)
 
-## Preview
+

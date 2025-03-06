@@ -1,5 +1,5 @@
 # Dotman
-Dotman is a very lightweight and simple ```DOT```file ```MAN```ager for GNU/Linux operating systems.\
+Dotman is a very lightweight and simple **Dot**file **Man**ager for GNU/Linux operating systems.\
 These are the **features** dotman have for now:
 | Features | Description                                                         | Status      | 
 |----------|---------------------------------------------------------------------|-------------|

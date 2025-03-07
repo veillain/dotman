@@ -16,39 +16,8 @@ These are the **features** dotman have for now:
 ## Overview
 Dotman uses a path that you set to be the dotfiles directories. Then you can manage your configuration into/from dotfiles with simple commands. \
 <br/>
-For example, let say you want to sync neovim configuration from ```./.config/nvim``` into your dotfiles which default is ```~/dotfiles```:
-```
-dotman sync nvim
-```
 
-Then, to remove the configuration from the dotfiles:
-```
-dotman remove nvim
-```
-
-you can also sync or remove bunch of configuration in one time:
-```
-dotman sync nvim obsidian rofi foot hypr dunst
-```
-
-Q: But i already sync all configuration that i want inside the dotfiles, how do i easily update it to sync with my currrent configuration? \
-A: You can use ```dotman syncall``` for this situation, it will update all configuration inside dotfiles to sync with your current configuration. Please be mind that it will overwrite the old configuration inside the dotfiles, deleted file will be deleted, and new file will be synced.
-
-## Install
-Manual Installation
-```
-git clone https://github.com/veillain/dotman.git
-cd dotman
-cp -rf src/dotman /usr/bin/
-```
-
-Archlinux - AUR
-```
-paru -S dotman
-```
-[![dotman](https://img.shields.io/aur/version/dotman?color=1793d1&label=dotman&logo=arch-linux&style=for-the-badge)](https://aur.archlinux.org/packages/dotman/)
-
-## Quick Start
+### Quick Start
 
 1. Create your directory to store the dotfiles:
 ```sh
@@ -64,3 +33,35 @@ dotman set ~/dotfiles
 ```sh
 dotman sync nvim
 ```
+> [!IMPORTANT]
+> by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
+
+4. You can run ```dotman syncall``` to sync all configuration inside dotfiles after making some change in current configuration
+> [!CAUTION]
+> be in mind if you syncall, the configuration in the dotfiles will be overwrited with modified current configuration
+
+5. To remove configuration from the dotfiles:
+```
+dotman remove nvim
+```
+
+> [!NOTE]
+> you can also sync or remove bunch of configuration in one time:
+```
+dotman sync nvim obsidian rofi foot hypr dunst
+```
+
+## Install
+Manual Installation
+```
+git clone https://github.com/veillain/dotman.git
+cd dotman
+cp -rf src/dotman /usr/bin/
+```
+
+Archlinux - AUR
+```
+paru -S dotman
+```
+[![dotman](https://img.shields.io/aur/version/dotman?color=1793d1&label=dotman&logo=arch-linux&style=for-the-badge)](https://aur.archlinux.org/packages/dotman/)
+

@@ -25,25 +25,25 @@ mkdir ~/dotfiles
 ```
 
 2. Set the directory you created to be dotman's dotfile path:
-```sh
-dotman set ~/dotfiles
-```
+    ```sh
+    dotman set ~/dotfiles
+    ```
 
 3. Add your configuration into the dotfiles
-```sh
-dotman sync nvim
-```
-> [!IMPORTANT]
-> by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
+    ```sh
+    dotman sync nvim
+    ```
+    > [!IMPORTANT]
+    > by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
 
 4. You can run ```dotman syncall``` to sync all configuration inside dotfiles after making some change in current configuration
-> [!CAUTION]
-> be in mind if you syncall, the configuration in the dotfiles will be overwrited with modified current configuration
+    > [!CAUTION]
+    > be in mind if you syncall, the configuration in the dotfiles will be overwrited with modified current configuration
 
 5. To remove configuration from the dotfiles:
-```
-dotman remove nvim
-```
+    ```
+    dotman remove nvim
+    ```
 
 > [!NOTE]
 > you can also sync or remove bunch of configuration in one time:

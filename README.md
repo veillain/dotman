@@ -20,19 +20,16 @@ For example, let say you want to sync neovim configuration from ```./.config/nvi
 ```
 dotman sync nvim
 ```
-<br/>
 
 Then, to remove the configuration from the dotfiles:
 ```
 dotman remove nvim
 ```
-<br/>
 
 you can also sync or remove bunch of configuration in one time:
 ```
 dotman sync nvim obsidian rofi foot hypr dunst
 ```
-<br/>
 
 Q: But i already sync all configuration that i want inside the dotfiles, how do i easily update it to sync with my currrent configuration? \
 A: You can use ```dotman syncall``` for this situation, it will update all configuration inside dotfiles to sync with your current configuration. Please be mind that it will overwrite the old configuration inside the dotfiles, deleted file will be deleted, and new file will be synced.
@@ -44,7 +41,26 @@ git clone https://github.com/veillain/dotman.git
 cd dotman
 cp -rf src/dotman /usr/bin/
 ```
+
 Archlinux - AUR
+```
+paru -S dotman
+```
 [![dotman](https://img.shields.io/aur/version/dotman?color=1793d1&label=dotman&logo=arch-linux&style=for-the-badge)](https://aur.archlinux.org/packages/dotman/)
 
+## Quick Start
 
+1. Create your directory to store the dotfiles:
+```sh
+mkdir ~/dotfiles
+```
+
+2. Set the directory you created to be dotman's dotfile path:
+```sh
+dotman set ~/dotfiles
+```
+
+3. Add your configuration into the dotfiles
+```sh
+dotman sync nvim
+```

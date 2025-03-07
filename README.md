@@ -38,13 +38,13 @@ Q: But i already sync all configuration that i want inside the dotfiles, how do 
 A: You can use ```dotman syncall``` for this situation, it will update all configuration inside dotfiles to sync with your current configuration. Please be mind that it will overwrite the old configuration inside the dotfiles, deleted file will be deleted, and new file will be synced.
 
 ## Install
+Manual Installation
 ```
 git clone https://github.com/veillain/dotman.git
 cd dotman
 cp -rf src/dotman /usr/bin/
 ```
-
-### Archlinux? AUR!
+Archlinux - AUR
 [![dotman](https://img.shields.io/aur/version/dotman?color=1793d1&label=dotman&logo=arch-linux&style=for-the-badge)](https://aur.archlinux.org/packages/dotman/)
 
 

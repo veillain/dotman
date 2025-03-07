@@ -20,9 +20,9 @@ Dotman uses a path that you set to be the dotfiles directories. Then you can man
 ### Quick Start
 
 1. Create your directory to store the dotfiles:
-```sh
-mkdir ~/dotfiles
-```
+    ```sh
+    mkdir ~/dotfiles
+    ```
 
 2. Set the directory you created to be dotman's dotfile path:
     ```sh
@@ -33,23 +33,20 @@ mkdir ~/dotfiles
     ```sh
     dotman sync nvim
     ```
-    > [!IMPORTANT]
-    > by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
 
-4. You can run ```dotman syncall``` to sync all configuration inside dotfiles after making some change in current configuration
-    > [!CAUTION]
-    > be in mind if you syncall, the configuration in the dotfiles will be overwrited with modified current configuration
-
-5. To remove configuration from the dotfiles:
+4. To remove configuration from the dotfiles:
     ```
     dotman remove nvim
     ```
 
+5. You can run ```dotman syncall``` to sync all configuration inside dotfiles after making some change in current configuration
+
 > [!NOTE]
-> you can also sync or remove bunch of configuration in one time:
-```
-dotman sync nvim obsidian rofi foot hypr dunst
-```
+    > you can also sync or remove bunch of configuration in one time: ```dotman sync nvim obsidian rofi foot hypr dunst```
+> [!IMPORTANT]
+> by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
+> [!CAUTION]
+> be in mind if you do ```dotman syncall```, the configuration in the dotfiles will be overwrited with modified current configuration
 
 ## Install
 Manual Installation

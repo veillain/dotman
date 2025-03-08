@@ -17,6 +17,27 @@ choice=$(echo $@ | grep -oP "(?<=${option} ).*")
 # Main Variables
 CONFIG_LIST=$(ls ${DOTFILE_PATH}/.config/${PKGS})
 
+function set() {
+    if [ -z "$choice" ]; then
+        echo "Usage: dotman set </path/to/your/dotfiles>"
+    elif [[ "$choice" = . ]]; then
+        rn=$(pwd)
+        echo "path = $rn" > $DOTMAN_FILE
+        if [ $? -eq 0 ]; then
+            echo "Dotfiles path changed to '$rn'"
+        else
+            echo "Failed to change the path"
+        fi
+    else
+        echo "path = $choice" > $DOTMAN_FILE
+        if [ $? -eq 0 ]; then
+            echo "Dotfiles path changed to '$choice'"
+        else
+            echo "Failed to change the path"
+        fi
+    fi
+}
+
 function remove() {
     echo ":: Processing dotfiles changes..."
     totalnumber=0
@@ -181,8 +202,9 @@ echo "usage:  dotman <operation> [...]
 operations:
     dotman {-h --help help}
     dotman {-l --list list}
-    dotman {-R --remove remove}     <package(s)>
-    dotman {-S --sync sync}         [package(s)]
+    dotman {--set set}          <path for dotfiles>
+    dotman {-R --remove remove} <package(s)>
+    dotman {-S --sync sync}     <package(s)>
     dotman {-Syu --syncall syncall}
 
 use 'dotman {-h --help help}' to show this page"
@@ -191,6 +213,7 @@ use 'dotman {-h --help help}' to show this page"
 # Run it!
 if [ -n "$option" ]; then
     case $option in
+        --set|set) set ;;
         -[rR]|-[rR][mM]|--remove|remove) thingstodo="remove"; confirmation; if [ "$confirm" = yes ]; then remove; fi ;;
         -[sS]|--sync|sync) thingstodo="sync"; confirmation; if [ "$confirm" = yes ]; then sync; fi ;;
         -[sS][yY][uU]|-[sS][yY]|-[sS][uU]|--syncall|syncall) syncall ;;

@@ -132,10 +132,12 @@ function syncall() {
 
 function list() {
     JARAK=30
-    BLUE="\033[0;34m"
+    BLUE="\033[1;34m"
     BLACK="\033[0;30m"
     NONE="\033[0m"
-    printf "${BLACK}##${NONE}[${BLUE}List Of Configuration${NONE}]\n"
+    YUSN=$(echo $(whoami))
+    DOTFPTH=$(echo ${DOTFILE_PATH} | sed "s|/home/${YUSN}|~|")
+    printf "${BLACK}##${NONE}[${BLUE}Dotman - Configs${NONE}] ${DOTFPTH}\n"
     for list in $(ls ${DOTFILE_PATH}/.config); do
         if [ -d "${DOTFILE_PATH}/.config/$list" ]; then
                 printf "${BLACK}-- ${BLUE} "
@@ -145,6 +147,7 @@ function list() {
                 printf "$(printf "%-${JARAK}s" "$list")\n"
         else
             echo "there's nothing in your dotfiles($dotfile_path)."
+            echo "start syncing your configuration using 'dotman sync'"
         fi
     done
 }

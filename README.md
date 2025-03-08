@@ -5,13 +5,15 @@ Dotman also inspired by **pacman** that archlinux used, which make all the comma
 <br/>
 These are the **features** dotman have for now:
 | Features | Description                                                         | Status   | 
-|----------|---------------------------------------------------------------------|----------|
-| ```List```     | Show the list of configuration files and folder inside the dotfiles | Applied  |
-| ```Sync```     | Sync/Copy the config files/folder into the dotfiles                 | Applied  |
-| ```Syncall```  | Sync all the config files/folder inside the dotfiles                | Applied  |
-| ```Remove```   | Remove config files/folder from dotfiles                            | Applied  |
-| ```Apply```    | Apply configuration from dotfiles to local                          | Progress |
-| ```Appyyall``` | Apply all configuration from dotfiles to local                      | progress |
+|----------|---------------------------------------------------------------------|-------|
+| ```List```     | Show the list of configuration files and folder inside the dotfiles | ✅ |
+| ```Sync```     | Sync/Copy the config files/folder into the dotfiles                 | ✅ |
+| ```Remove```   | Remove config files/folder from dotfiles                            | ✅ |
+| ```Apply```    | Apply configuration from dotfiles to local                          | ✅ |
+| ```Symlink```  | Apply all configuration from dotfiles to local                      | ✅ |
+| ```Syncall```  | Sync all the config files/folder inside the dotfiles                | ✅ |
+| ```Applyall``` | Apply all the config from dotfiles into local                       | 🚧 |
+| ```Linkall```  | Same as Applyall but its symlinking                                 | 🚧 |
 
 ## Overview
 Dotman uses a path that you set to be the dotfiles directories. Then you can manage your configuration into/from dotfiles with simple commands. \

@@ -90,7 +90,9 @@ function apply() {
         totalnumber=$(($totalnumber + 1))
     done
     for PKGS in ${choice[@]}; do
-        if [ "$(ls ${CONFIG_PATH}/${PKGS} &>/dev/null)" ]; then remove &>/dev/null; fi
+        if [ "$(ls ${CONFIG_PATH}/${PKGS} &>/dev/null)" ]; then 
+            rm -rf ${CONFIG_PATH}/${PKGS} &>/dev/null
+        fi
 
         if [ -d "${DOTFILE_PATH}/.config/${PKGS}" ]; then mkdir -p ${CONFIG_PATH}/${PKGS}; fi
         cp -rf ${DOTFILE_PATH}/.config/$PKGS ${CONFIG_PATH}
@@ -169,6 +171,50 @@ function syncall() {
                 echo "($number/$totalnumber) succesfully updated $PKGS"
             else
                 echo "($number/$totalnumber) failed to update da $PKGS"
+            fi
+            number=$(($number + 1))
+        done
+    else
+        echo "Process cancelled"
+    fi
+}
+
+function applyall() {
+    echo ":: Checking the dotfiles..."
+    echo ":: looking for conflicting configs..."
+    echo ""
+    rm -rf /tmp/applyall &>/dev/null
+    for PKGS in $(command ls ${DOTFILE_PATH}/.config); do
+        dotsize=$(du -sh ${DOTFILE_PATH} | awk '{print $1}')
+        configsize=$(du -sh $CONFIG_PATH | awk '{print $1}')
+        totalnumber=$(($totalnumber + 1))
+        echo $PKGS >> /tmp/applyall
+    done
+
+    echo "Packages: (${totalnumber}) $(echo $(cat /tmp/applyall))"
+    echo ""
+    echo "Current dotfile Size: $dotsize"
+    echo "Current .config Size: $configsize"
+    echo ""
+    echo -n ":: Proceed to Apply All? it'll delete current configurations! [Y/n] "
+    read answer
+    case $answer in 
+        [yY]) confirm="yes" ;; 
+        [nN]) confirm="no" ;; 
+        *) confirm="yes" ;; 
+    esac
+
+    if [ "$confirm" = yes ]; then
+        echo ":: Retrieving configs..."
+        echo "$totalnumber"
+        number=1
+        for PKGS in $(command ls ${DOTFILE_PATH}/.config); do
+            rm -rf ${CONFIG_PATH}/${PKGS} && \
+            cp -rf ${DOTFILE_PATH}/.config/${PKGS} ${CONFIG_PATH}/
+            if [ $? -eq 0 ]; then
+                echo "($number/$totalnumber) succesfully applied $PKGS"
+            else
+                echo "($number/$totalnumber) failed to apply the $PKGS"
             fi
             number=$(($number + 1))
         done
@@ -298,6 +344,7 @@ operations:
     dotman {-A --apply apply}       <package(s)>
     dotman {-Sl --symlink symlink}  <package(s)>
     dotman {-Syu --syncall syncall}
+    dotman {-Ayu --applyall applyall}
 
 use 'dotman help' to show this page"
 }
@@ -305,14 +352,15 @@ use 'dotman help' to show this page"
 # Run it!
 if [ -n "$option" ]; then
     case $option in
+        -[lL]|--list|list) list ;;
+        -[hH]|--help|help) help ;;
         --set|set) set ;;
         -[rR]|-[rR][mM]|--remove|remove) thingstodo="remove"; confirmation; if [ "$confirm" = yes ]; then remove; fi ;;
         -[sS]|--sync|sync) thingstodo="sync"; confirmation; if [ "$confirm" = yes ]; then sync; fi ;;
-        -[sS][yY][uU]|-[sS][yY]|-[sS][uU]|--syncall|syncall) syncall ;;
         -[aA]|--apply|apply) thingstodo="apply"; confirmation; if [ "$confirm" = yes ]; then apply; fi ;;
         -[sS][lL]|--symlink|symlink) thingstodo="symlink"; confirmation; if [ "$confirm" = yes ]; then symlink; fi ;;
-        -[lL]|--list|list) list ;;
-        -[hH]|--help|help) help ;;
+        -[sS][yY][uU]|-[sS][yY]|-[sS][uU]|--syncall|syncall) syncall ;;
+        -[aA][yY][uU]|--applyall|applyall) applyall ;;
         *) echo "wrong input (use 'dotman help' for help)" ;;
     esac
 else

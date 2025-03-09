@@ -105,32 +105,6 @@ function apply() {
     done
 }
 
-function symlink() {
-    echo ":: retrieving configurations..."
-    totalnumber=0
-    number=1
-    for PKGS in ${choice[@]}; do
-        totalnumber=$(($totalnumber + 1))
-    done
-    for PKGS in ${choice[@]}; do
-        rm -rf ${CONFIG_PATH}/${PKGS} &>/dev/null
-        for folders in $(find ${DOTFILE_PATH}/.config/${PKGS} -type d); do
-            folders=$(echo $folders | sed "s|${DOTFILE_PATH}/.config/||")
-            mkdir -p ${CONFIG_PATH}/${folders}
-        done
-        for files in $(find ${DOTFILE_PATH}/.config/${PKGS} -type f); do
-            files=$(echo $files | sed "s|${DOTFILE_PATH}/.config/||")
-            ln -s ${DOTFILE_PATH}/.config/${PKGS} ${CONFIG_PATH}/${files} 
-        done
-        if [ $? -eq 0 ]; then
-            echo "(${number}/${totalnumber}) $PKGS succesfully overwrited & symlinked"
-        else
-            echo "(${number}/${totalnumber}) failed to overwrite & symlinks the $PKGS"
-        fi
-        number=$(($number + 1))
-    done
-}
-
 function syncall() {
     echo ":: Synchronizing dotfiles with the configs..."
     echo ":: Starting full dotfiles update..."
@@ -301,26 +275,6 @@ function confirmation() {
                 echo ":: This Process will replace the configuration on the local with the dotfiles."
                 echo -n ":: Proceed to apply [Y/n] " 
                 ;;
-            symlink)
-                echo "checking the dotfiles..."
-                echo "looking for conflicting folders..."
-                for PKGS in ${choice[@]}; do
-                    size=$(du -sh ${DOTFILE_PATH}/.config/$PKGS | awk '{print $1}')
-                    configsize=$(du -sh $CONFIG_PATH | awk '{print $1}')
-                    if $(ls ${DOTFILE_PATH}/.config/$PKGS &>/dev/null); then 
-                        echo "warning: $PKGS already in the local -- replacing"
-                    fi
-                    number=$(($number + 1))
-                done
-                echo ""
-                echo "Packages (${number}) $choice"
-                echo ""
-                echo "Package Configs Size: $size"
-                echo "Current Local(.config) Size: $configsize"
-                echo ""
-                echo ":: This Process will replace the configuration on the local with the dotfiles."
-                echo -n ":: Proceed to Symlinking? [Y/n] " 
-                ;;
         esac
         read answer
         case $answer in
@@ -342,7 +296,6 @@ operations:
     dotman {-R --remove remove}     <package(s)>
     dotman {-S --sync sync}         <package(s)>
     dotman {-A --apply apply}       <package(s)>
-    dotman {-Sl --symlink symlink}  <package(s)>
     dotman {-Syu --syncall syncall}
     dotman {-Ayu --applyall applyall}
 
@@ -358,7 +311,6 @@ if [ -n "$option" ]; then
         -[rR]|-[rR][mM]|--remove|remove) thingstodo="remove"; confirmation; if [ "$confirm" = yes ]; then remove; fi ;;
         -[sS]|--sync|sync) thingstodo="sync"; confirmation; if [ "$confirm" = yes ]; then sync; fi ;;
         -[aA]|--apply|apply) thingstodo="apply"; confirmation; if [ "$confirm" = yes ]; then apply; fi ;;
-        -[sS][lL]|--symlink|symlink) thingstodo="symlink"; confirmation; if [ "$confirm" = yes ]; then symlink; fi ;;
         -[sS][yY][uU]|-[sS][yY]|-[sS][uU]|--syncall|syncall) syncall ;;
         -[aA][yY][uU]|--applyall|applyall) applyall ;;
         *) echo "wrong input (use 'dotman help' for help)" ;;

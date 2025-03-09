@@ -10,10 +10,8 @@ These are the **features** dotman have for now:
 | ```Sync```     | Sync/Copy the config files/folder into the dotfiles                 | ✅ |
 | ```Remove```   | Remove config files/folder from dotfiles                            | ✅ |
 | ```Apply```    | Apply configuration from dotfiles to local                          | ✅ |
-| ```Symlink```  | Apply all configuration from dotfiles to local                      | ✅ |
 | ```Syncall```  | Sync all the config files/folder inside the dotfiles                | ✅ |
 | ```Applyall``` | Apply all the config from dotfiles into local                       | 🚧 |
-| ```Linkall```  | Same as Applyall but its symlinking                                 | 🚧 |
 
 ## Overview
 Dotman uses a path that you set to be the dotfiles directories. Then you can manage your configuration into/from dotfiles with simple commands. \
@@ -45,7 +43,7 @@ Dotman uses a path that you set to be the dotfiles directories. Then you can man
 > you can also sync or remove bunch of configuration in one time: ```dotman sync nvim obsidian rofi foot hypr dunst```
 
 > [!IMPORTANT]
-> by default dotman doesn't automatically symlink the configuration that've synced. If you want to, you need to ```dotman apply``` it. (feature still in progress tho.)
+> dotman doesn't apply symlink way to sync. If you want to, you can use 'stow' that really perfect for it.
 
 > [!CAUTION]
 > be in mind if you do ```dotman syncall```, the configuration in the dotfiles will be overwrited with modified current configuration

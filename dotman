@@ -17,6 +17,19 @@ choice=$(echo $@ | grep -oP "(?<=${option} ).*")
 # Main Variables
 CONFIG_LIST=$(ls ${DOTFILE_PATH}/.config/${PKGS})
 
+function action() {
+    case $1 in 
+        cptodot)
+        ;;
+        cptoloc)
+        ;;
+        rmfrdot)
+        ;;
+        rmfrloc)
+        ;;
+    esac
+}
+
 function set() {
     if [ -z "$choice" ]; then
         echo "Usage: dotman set </path/to/your/dotfiles>"
@@ -288,18 +301,23 @@ function confirmation() {
 }
 
 function help() {
-echo "usage:  dotman <operation> [...]
+    cat <<EOF
+usage:  dotman <operation> [...]
 operations:
-    dotman {-h --help help}
-    dotman {-l --list list}
-    dotman {--set set}              <path for dotfiles>
-    dotman {-R --remove remove}     <package(s)>
-    dotman {-S --sync sync}         <package(s)>
-    dotman {-A --apply apply}       <package(s)>
-    dotman {-Syu --syncall syncall}
-    dotman {-Ayu --applyall applyall}
+    dotman {-h --help}
+    dotman {-l --list}
+    dotman {-A --apply}  [package(s)]
+    dotman {-R --remove} [package(s)]
+    dotman {-S --sync}   [package(s)]
+    dotman {--set set}   [dots. path]
+
+batch operations:
+    dotman {-Syu --syncall}
+    dotman {-Ayu --applyall}
 
 use 'dotman help' to show this page"
+EOF
+    exit 1
 }
 
 # Run it!

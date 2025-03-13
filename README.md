@@ -53,7 +53,7 @@ Manual Installation
 ```
 git clone https://github.com/veillain/dotman.git
 cd dotman
-cp -rf src/dotman /usr/bin/
+sudo cp -rf dotman /usr/bin/
 ```
 
 Archlinux - AUR
